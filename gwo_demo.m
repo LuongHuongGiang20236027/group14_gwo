@@ -38,20 +38,22 @@ for t = 1:T
         if fitness < alpha.score
             delta = beta;
             beta = alpha;
-            alpha.pos = positions(i,:); alpha.score = fitness;
+            alpha.pos = positions(i,:);
+            alpha.score = fitness;
 
         elseif fitness < beta.score
             delta = beta;
-            beta.pos = positions(i,:); beta.score = fitness;
+            beta.pos = positions(i,:);
+            beta.score = fitness;
 
         elseif fitness < delta.score
-            delta.pos = positions(i,:); delta.score = fitness;
+            delta.pos = positions(i,:);
+            delta.score = fitness;
         end
     end
 
     % --- Cập nhật vị trí các sói ---
     for i = 1:N
-
         X = positions(i,:);
 
         % Alpha
@@ -74,12 +76,14 @@ for t = 1:T
 
         newX = (X1 + X2 + X3) / 3;
 
-        newX = max(newX, lb);   % ràng buộc biên
+        % ràng buộc biên
+        newX = max(newX, lb);
         newX = min(newX, ub);
 
         positions(i,:) = newX;
     end
 
+    % Lưu nghiệm tốt nhất hiện tại
     convergence(t) = alpha.score;
 
     if mod(t,10)==0
